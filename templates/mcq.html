@@ -1,0 +1,185 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.7/ace.js" charset="utf-8"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="{%static 'mcq.css'%}">
+
+    <title>mcq page</title>
+  </head>
+  <body>
+    <div class="head">
+      <h2 class="text-center">KJ PROGRAMMING CHAMPIONSHIP
+            <!-- <i class="fas fa-desktop"></i> -->
+          </h2>
+    </div>
+    
+    <!-- <p style="color:red;">{{i.0.text}}</p> -->
+    
+    <!-- <p>{{k.text}}</p> -->
+    
+    
+    <div class="container content">
+      {%for i in values%}
+      <div no=1 class="question-content">
+        <form action="/mcqpost/" method="POST">
+          <!-- /mcqpost/ -->
+          {%csrf_token%}
+      <p class="question"><span class="no">{{ forloop.counter }})</span>{{i.0.text}}
+      </p>
+      <div class="answers">
+        <div class="row">
+          {%for k in i.1%}
+          <div class="col-6">
+            <p class="inputs"><input status="{{k.0.status}}" id="q{{forloop.parentloop.counter}}{{k.1}}" type="radio" name="q{{forloop.parentloop.counter}}" value="{{k.0.text}}"><label for="q{{forloop.parentloop.counter}}{{k.1}}"> 
+              <span>{{k.1}}</span>
+              {{k.0.text}}</p></label>
+          </div>
+          {%endfor%}
+          <!-- <div class="col-6">
+            <p class="inputs"><input id="q1B" type="radio" name="q1" value="B"><label for="q1B"> <span>B)</span> Zara Bhori</p></label>
+
+          </div> -->
+        </div>
+        <!-- <div class="row">
+          <div class="col-6">
+            <p class="inputs"><input id="q1C" type="radio" name="q1" value="C"><label for="q1C"> <span>C)</span> Faizan Shaikh</p></label>
+
+          </div>
+          <div class="col-6">
+            <p class="inputs"><input id="q1D" type="radio" name="q1" value="D"><label for="q1D"> <span>D)</span> OMkar Ople</p></label>
+
+          </div>
+        </div> -->
+      </div>
+      
+    </div>
+    {%endfor%}
+    
+ <div class="buttons">
+  <button type="submit" id="submit" name="button">Submit</button>
+ </div>
+    <input type="number" id="marks" value="" name="marks">
+  </form>
+    </div><div class="buttons">
+      <a href="#"><i id="left" class="fas fa-arrow-left left"></i></a>
+      <a href="#"><i id="right" class="fas fa-arrow-right right active"></i></a>
+      
+
+    </div>
+    <div class="counter">
+      <p>Timings</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+var cq=0;
+var d=document.querySelectorAll(".question-content");
+var left=document.querySelector("#left");
+var right=document.querySelector("#right");
+display();
+function display(){
+for(var i=0;i<d.length;i++){
+  if(i==cq){
+    d[i].style.display="block";
+    continue;
+  }
+  d[i].style.display="none";
+}}
+function trackcq(){
+  if(cq==0){
+    left.classList.remove("active");
+    right.classList.add("active");
+
+  }
+  else if(cq==d.length-1){
+    right.classList.remove("active");
+      left.classList.add("active");
+  }
+  else{
+    left.classList.add("active");
+    right.classList.add("active");
+  }
+}
+$("#right").click(function(e){
+  cq++;
+  display();
+  trackcq();
+
+
+
+
+});
+$("#left").click(function(e){
+  cq--;
+  display();
+trackcq();
+
+
+
+});
+function iscorrect(id){
+  var ele=document.getElementsByName(id);
+  for(var i=0;i<ele.length;i++){
+    if(ele[i].checked && ele[i].getAttribute("status")=="True"){
+      console.log(ele[i].getAttribute("status"));
+      return 1;
+    }
+    
+  }
+  return 0;
+}
+
+$("#submit").click(function(){
+  var marks=0;
+  var m=2;
+  var k=document.querySelector("input#marks");
+var num="q";
+for(var i=1;i<=d.length;i++){
+num+=i.toString();
+console.log(num);
+marks+=iscorrect(num);
+num="q";
+}
+k.value=marks;
+});
+var x="{{time}}";
+var t=x.split(","); 
+for(var i=1;i<t.length-1;i++){
+  t[i]=t[i].replace(/&#39;/g,"");
+  console.log(t[i]);
+}
+var months={"Jan":1,"Feb":2,"Mar":3,"Apr":4,"May":5,"Jun":6,"July":7,
+            "Aug":8,"Sep":9,"Oct":10,"Nov":11,"Dec":12};
+var day=parseInt(t[1]);
+var mon=months[t[2].trim()];
+var year=parseInt(t[3]);
+var hr=parseInt(t[4]);
+var min=parseInt(t[5]);
+var sec=parseInt(t[6]);
+console.log(day,mon,year,hr,min,sec);
+
+
+var timer=document.querySelector(".counter p");
+    
+    var count_to=new Date(year,mon,day,hr,min,sec,0);
+    var x=setInterval(function(){
+      var now=new Date().getTime();
+      var d=count_to-now;
+      var min=Math.floor((d%(1000*60*60))/(1000*60));
+      var sec=Math.floor((d%(1000*60))/(1000));
+      timer.innerHTML=min+ " : "+sec;
+      if(min==0 && sec==00){
+        window.location.href="/";
+      }
+    },1000);
+});
+</script>
+  </body>
+</html>
