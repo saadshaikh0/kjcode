@@ -131,7 +131,7 @@ button.close {
 
 .image{
   position: relative;
-  background: url("laptop.jpg");
+  /* background: url("laptop.jpg"); */
   background-position: center;
 }
 .image h2{
