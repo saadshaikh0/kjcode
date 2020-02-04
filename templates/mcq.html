@@ -176,7 +176,7 @@ var timer=document.querySelector(".counter p");
       var sec=Math.floor((d%(1000*60))/(1000));
       timer.innerHTML=min+ " : "+sec;
       if(min==0 && sec==00){
-        window.location.href="/";
+        window.location.href="/accounts/logout";
       }
     },1000);
 });
