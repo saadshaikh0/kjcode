@@ -116,7 +116,7 @@ Output Format</p> -->
     var x="{{time}}";
 var t=x.split(","); 
 for(var i=1;i<t.length-1;i++){
-  t[i]=t[i].replace(/&#39;/g,"");
+  t[i]=t[i].replace(/&#x27;/g,"");
   console.log(t[i]);
 }
 var months={"Jan":1,"Feb":2,"Mar":3,"Apr":4,"May":5,"Jun":6,"July":7,
