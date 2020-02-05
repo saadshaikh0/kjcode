@@ -138,15 +138,15 @@ var timer=document.querySelector(".counter p");
       }
       else if(lang=="java"){
         a.setOptions({mode:"ace/mode/java",});
-        a.setValue("//Enter your code here");
+        a.setValue("//Enter your code here\nimport java.io.*;\nclass GFG {\npublic static void main(String[] args){\nfor(int i=0;i<6;i++){\n\tfor(int m=0;m<6;m++){\n\t\tSystem.out.print(\"*\");\n\t}\n\tSystem.out.println();\n}\n}\n}");
       }
       else if(lang=="Cpp14"){
         a.setOptions({mode:"ace/mode/c_cpp",});
-        a.setValue("//Enter your code here");
+        a.setValue("//Enter your code here\n#include<iostream>\nusing namespace std;\nint main(){\nfor(int i=0;i<6;i++){\n\tfor(int m=0;m<6;m++){\n\t\tcout<<\"*\";\n\t}\n\tcout<<\"\\n\";\n}\n}");
       }
       else if(lang=="c"){
         a.setOptions({mode:"ace/mode/c_cpp",});
-        a.setValue("//Enter your code here");
+        a.setValue("//Enter your code here\n#include<stdio.h>\nusing namespace std;\nint main(){\nfor(int i=0;i<6;i++){\n\tfor(int m=0;m<6;m++){\n\t\tprintf(\"*\");\n\t}\n\tprintf(\"\\n\");\n}\n}");
       }
       }
     })
