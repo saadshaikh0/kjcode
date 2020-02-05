@@ -22,6 +22,7 @@ def code(request):
     x=re.split("^([0-9]{1,3})-([a-zA-Z]{3})-([0-9]{4})\s\(([0-9]{1,3}):([0-9]{1,3}):([0-9]{1,3})\)$",request.session["timer"])
 
     return render(request,"question.html",{"time":x})
+@login_required
 def postdata(request):
     if request.method=='POST':
         code=request.POST['code']
@@ -59,11 +60,16 @@ def postdata(request):
         # print("##########")
         # u=request.META.get('HTTP_REFERER',"/")
         # prev_url=u.split("/")[-2]
-        if output==rightanswer1 or int(output)==rightanswer2:
-            o=True
-            
-        else:
+        try:
+            if output==rightanswer1 or int(output)==rightanswer2:
+                o=True
+            else:
+                o=False
+        except ValueError:
             o=False
+        except:
+            o=False
+        
         # print("//////////")
         # print(o)
         # print("##########")

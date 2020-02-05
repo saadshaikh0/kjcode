@@ -115,7 +115,7 @@ var timer=document.querySelector(".counter p");
       }
     },1000);
       var a=ace.edit("editor");
-      a.setValue("#Correct the code\na=6\nfor i in range(a):\n\tj=i\n\tfor k in range(j):\n\t\tprint(end=\" \")\n\tm=a-i\n\tfor l in range(m*2-1):\n\t\tprint(\"*\",end=\"\")\n\tprint()")
+      a.setValue("#Correct the code\na=6\nfor i in range(a):\n\tj=i\n\tfor k in range(j):\n\t\tprint(\"*\")\n\tm=a-i\n\tprint()")
       a.setOptions({ useWrapMode: false,
     highlightActiveLine: true,
     showPrintMargin: false,
@@ -134,7 +134,7 @@ var timer=document.querySelector(".counter p");
       var lang=e.target.getAttribute("l");
       if(lang=="Python3"){
         a.setOptions({mode:"ace/mode/python",});
-        a.setValue("#Correct the code\na=6\nfor i in range(a):\n\tj=i\n\tfor k in range(j):\n\t\tprint(end=\" \")\n\tm=a-i\n\tfor l in range(m*2-1):\n\t\tprint(\"*\",end=\"\")\n\tprint()");
+        a.setValue("#Correct the code\na=6\nfor i in range(a):\n\tj=i\n\tfor k in range(j):\n\t\tprint(\"*\")\n\tm=a-i\n\tprint()");
       }
       else if(lang=="java"){
         a.setOptions({mode:"ace/mode/java",});
