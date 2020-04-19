@@ -10,6 +10,29 @@ body{
 
   padding: 3%;
 }
+img{
+  width: 100px;
+  height:150px;
+  text-align: center;
+
+}
+.child{
+  display: flex;
+  width: 50%;
+}
+.head{
+  display: flex;
+  justify-content: space-around;
+  background: #272343;
+  padding: 3%;
+
+}
+.head h2{
+
+  flex-grow: 2;
+  align-self: center;
+  text-align: left;
+}
 .content{
   margin-top: 3%;
 
@@ -127,6 +150,7 @@ margin-left: 2%;
 .buttons button{
   position: absolute;
   left: 45%;
+  display: none;
   bottom: 20%;
   color: #bae8e8;
   background-color: #272343;

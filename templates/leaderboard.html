@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.7/ace.js" charset="utf-8"></script>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{%static 'leaderboard.css'%}">
@@ -16,9 +16,13 @@
   <body>
 
 <div class="head">
-  <h2 class="text-center">KJ PROGRAMMING CHAMPIONSHIP
+  <div class="child">
+    <img src="{% static 'img/updatedkjlogo.png'%}" alt="">
+
+  <h2 class="text-center">KJ CODE DECODE
         <!-- <i class="fas fa-desktop"></i> -->
       </h2>
+  </div>
 </div>
 
 <div class="content container">
@@ -41,6 +45,7 @@
     </table>
   </div>
 </div>
+{% include "partials/footer.html"%}
 
   </body>
 </html>

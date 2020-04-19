@@ -12,10 +12,13 @@
   </head>
   <body>
     <div class="head">
-      <h2 class="text-center">
-        KJ PROGRAMMING CHAMPIONSHIP
+      <div class="child">
+        <img src="{% static 'img/updatedkjlogo.png'%}" alt="">
+    
+      <h2 class="text-center">KJ CODE DECODE
             <!-- <i class="fas fa-desktop"></i> -->
           </h2>
+      </div>
 
     </div>
 
@@ -54,6 +57,8 @@
     <div class="counter">
       <p>Timings</p>
     </div>
+    <!-- {% include "partials/footer.html"%} -->
+
     <script>
       var x="{{time}}";
 var t=x.split(","); 

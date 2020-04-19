@@ -14,9 +14,13 @@
   </head>
   <body>
     <div class="head">
-      <h2 class="text-center">KJ PROGRAMMING CHAMPIONSHIP
+      <div class="child">
+        <img src="{% static 'img/updatedkjlogo.png'%}" alt="">
+    
+      <h2 class="text-center">KJ CODE DECODE
             <!-- <i class="fas fa-desktop"></i> -->
           </h2>
+      </div>
     </div>
     
     <!-- <p style="color:red;">{{i.0.text}}</p> -->
@@ -27,7 +31,7 @@
     <div class="container content">
       {%for i in values%}
       <div no=1 class="question-content">
-        <form action="/mcqpost/" method="POST">
+        <form name="myform" id="mcq_form" action="/mcqpost/" method="POST">
           <!-- /mcqpost/ -->
           {%csrf_token%}
       <p class="question"><span class="no">{{ forloop.counter }})</span>{{i.0.text}}
@@ -75,6 +79,8 @@
     <div class="counter">
       <p>Timings</p>
     </div>
+    <!-- {% include "partials/footer.html"%} -->
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
@@ -92,19 +98,25 @@ for(var i=0;i<d.length;i++){
   }
   d[i].style.display="none";
 }}
+var b=document.querySelector(".buttons button");
 function trackcq(){
+  
   if(cq==0){
     left.classList.remove("active");
     right.classList.add("active");
+    b.style.display="none";
 
   }
   else if(cq==d.length-1){
     right.classList.remove("active");
       left.classList.add("active");
+     
+    b.style.display="block";
   }
   else{
     left.classList.add("active");
     right.classList.add("active");
+    b.style.display="none";
   }
 }
 $("#right").click(function(e){
@@ -152,7 +164,7 @@ k.value=marks;
 var x="{{time}}";
 var t=x.split(","); 
 for(var i=1;i<t.length-1;i++){
-  t[i]=t[i].replace(/&#x27;/g,"");
+  t[i]=t[i].replace(/&#39;/g,"");
   console.log(t[i]);
 }
 var months={"Jan":1,"Feb":2,"Mar":3,"Apr":4,"May":5,"Jun":6,"July":7,
@@ -176,8 +188,10 @@ var timer=document.querySelector(".counter p");
       var sec=Math.floor((d%(1000*60))/(1000));
       timer.innerHTML=min+ " : "+sec;
       if(min==0 && sec==00){
-        window.location.href="/accounts/logout";
+        $("#submit").click();
       }
+    
+        
     },1000);
 });
 </script>

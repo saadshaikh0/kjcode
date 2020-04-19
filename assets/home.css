@@ -17,6 +17,29 @@ body{
   text-shadow: 5px 5px 3px black;
   font-size: 300%;
 }
+img{
+  width: 100px;
+  height:150px;
+  text-align: center;
+
+}
+.child{
+  display: flex;
+  width: 50%;
+}
+.head{
+  display: flex;
+  justify-content: space-around;
+  background: #272343;
+  padding: 3%;
+
+}
+.head h2{
+
+  flex-grow: 2;
+  align-self: center;
+  text-align: left;
+}
 
 .typewriter {
   display: flex;
@@ -131,7 +154,7 @@ button.close {
 
 .image{
   position: relative;
-  background: url("laptop.jpg");
+ 
   background-position: center;
 }
 .image h2{
@@ -327,4 +350,29 @@ margin-right: 10px;
 .head a:hover{
   background: #bae8e8;
   color: #272343;
+}
+.counter{
+  position: fixed;
+  bottom: 1%;
+  width: 100px;
+  border-radius: 1rem;
+  background:#ff6f5e ;
+  right: 5%;
+}
+.counter p{
+  font-size: 20px;
+  text-align: center;
+  margin: 0px;
+  color:#f5f0e3 ;
+
+
+}
+.message{
+  background: lightgreen;
+  padding: 20px 10px;
+}
+.message p{
+  color: white;
+  font-size: 20px;
+  text-align: center;
 }

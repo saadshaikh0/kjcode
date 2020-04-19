@@ -26,7 +26,7 @@ def login(request):
         user=auth.authenticate(username=username,password=password)
         if user is not None:
             auth.login(request,user)
-            request.session['timer'] = (datetime.datetime.now()+datetime.timedelta(minutes=60)).strftime("%d-%b-%Y (%H:%M:%S)")
+            request.session['timer'] = (datetime.datetime.now()+datetime.timedelta(minutes=15)).strftime("%d-%b-%Y (%H:%M:%S)")
 
 
 
@@ -41,7 +41,7 @@ def login(request):
             # for i in x:
             #     print(i)
             print("##################")
-            return redirect("mcq")
+            return redirect("algorithm")
         else:
             messages.info(request,"incorrect credintials")
             return redirect("/")

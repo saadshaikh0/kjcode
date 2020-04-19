@@ -13,29 +13,6 @@ body{
   text-shadow: 5px 5px 3px black;
   font-size: 300%;
 }
-img{
-  width: 100px;
-  height:150px;
-  text-align: center;
-
-}
-.child{
-  display: flex;
-  width: 50%;
-}
-.head{
-  display: flex;
-  justify-content: space-around;
-  background: #272343;
-  padding: 3%;
-
-}
-.head h2{
-
-  flex-grow: 2;
-  align-self: center;
-  text-align: left;
-}
 .question-head{
 padding-left: 10px;
 }
