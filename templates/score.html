@@ -1,0 +1,104 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="{%static 'score.css'%}">
+    <title>Score Page</title>
+  </head>
+  <body>
+    <div class="head">
+      <div class="child">
+        <img src="{% static 'img/updatedkjlogo.png'%}" alt="">
+    
+      <h2 class="text-center">KJ CODE DECODE
+            <!-- <i class="fas fa-desktop"></i> -->
+          </h2>
+      </div>
+
+    </div>
+
+    <div class="result">
+
+      <h4 class="text-center text-capitalize">{{user.first_name}} </h4>
+      <p class="line"></p>
+      <div class="content">
+        <div class="row">
+          <div class="col-8 question-column">
+            <p class="text-center">No. of Questions</p>
+            <p class="text-center">No. of Correct Answers</p>
+            <p class="text-center">No. of Wrong Answers</p>
+            <p class="text-center">Result</p>
+          </div>
+          <div class="col-4">
+            <p class="text-center">{{total}}</p>
+            <p class="text-center">{{c}}</p>
+            <p class="text-center">{{w}}</p>
+            <p class="text-center">{{r}}</p>
+          </div>
+        </div>
+        {%if r == "PASS"%}
+        <div class="content-footer">
+          <p class="text-center">Congratulations, <b class="text-capitalize">{{user.first_name}}</b>  move to the next round</p>
+          <a href="/algorithm/">Continue</a>
+        </div>
+        {%else%}
+        <div class="content-footer">
+          <p class="text-center">Sorry, Better Luck next time</p>
+        </div>
+        {%endif%}
+      </div>
+    </div>
+
+    <div class="counter">
+      <p>Timings</p>
+    </div>
+    <!-- {% include "partials/footer.html"%} -->
+
+    <script>
+      var x="{{time}}";
+var t=x.split(","); 
+for(var i=1;i<t.length-1;i++){
+  t[i]=t[i].replace(/&#x27;/g,"");
+  console.log(t[i]);
+}
+var months={"Jan":1,"Feb":2,"Mar":3,"Apr":4,"May":5,"Jun":6,"July":7,
+            "Aug":8,"Sep":9,"Oct":10,"Nov":11,"Dec":12};
+var day=parseInt(t[1]);
+var mon=months[t[2].trim()];
+var year=parseInt(t[3]);
+var hr=parseInt(t[4]);
+var min=parseInt(t[5]);
+var sec=parseInt(t[6]);
+console.log(day,mon,year,hr,min,sec);
+
+
+var timer=document.querySelector(".counter p");
+    
+    var count_to=new Date(year,mon,day,hr,min,sec,0);
+    var x=setInterval(function(){
+      var now=new Date().getTime();
+      var d=count_to-now;
+      var min=Math.floor((d%(1000*60*60))/(1000*60));
+      var sec=Math.floor((d%(1000*60))/(1000));
+      timer.innerHTML=min+ " : "+sec;
+      if(min==0 && sec==00){
+        window.location.href="/accounts/logout";
+      }
+    },1000);
+    var result="{{r}}";
+    var k=document.querySelector(".result");
+    
+    if(result=="PASS"){
+      k.classList.add("active");
+    }
+    else{
+      k.classList.add("passive");
+    }
+    </script>
+  </body>
+</html>

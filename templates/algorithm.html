@@ -1,0 +1,189 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.7/ace.js" charset="utf-8"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'algorithm.css'%}">
+<link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Montserrat&display=swap" rel="stylesheet">
+    <title>Algorithm page</title>
+  </head>
+  <body>
+    <div class="head">
+      <div class="child">
+        <img src="{% static 'img/updatedkjlogo.png'%}" alt="">
+    
+      <h2 class="text-center">KJ CODE DECODE
+            <!-- <i class="fas fa-desktop"></i> -->
+          </h2>
+      </div>
+    </div>
+    <div class="content ">
+      <div class="question-head">
+        <p>DEBUG THE CODE</p>
+      </div>
+      <div class="question-content">
+        <p>Recreate the pattern shown below in any of the following Languages: Python, Java ,C , C++</p>
+        <p>The following code is altered /modified to not match the output you are given the task to fix the code so that is prints the given pattern</p>
+        <div class="example-output">
+          <pre>***********</pre>
+          <pre> *********</pre>
+          <pre>  *******</pre>
+          <pre>   *****</pre>
+          <pre>    ***</pre>
+          <pre>     *</pre>
+        </div>
+      </div>
+      <div class="tabs">
+        <ul>
+        <li class="text-center active" l="Python3">
+          Python
+          
+        </li>
+        <li class="text-center" l="java">
+          Java
+          
+        </li>
+        <li class="text-center" l="Cpp14">
+          
+          C++
+        </li>
+        <li class="text-center" l="c">
+          C
+         
+        </li>
+        </ul>
+      </div>
+      <form action="/postdata/" id="data" method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        <div class="container-fluid editwrap">
+          <div id="editor"></div>
+    </div>
+
+    <div class="algo-buttons">
+     
+        <button type="submit" name="button">Submit</button>
+        
+      <div class="next-button">
+        <a class="next" href="/code/">Next</a>
+      </div>
+         
+      </div>
+
+
+
+      </form>
+      <div class="output">
+        <h3>Output</h3>
+        <div style="white-space: pre-line;" id="outputpara"></div>
+        
+      </div>
+    </div>
+    <div class="counter">
+      <p>Timings</p>
+    </div>
+    {% include "partials/footer.html"%}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+    var x="{{time}}";
+var t=x.split(","); 
+for(var i=1;i<t.length-1;i++){
+  t[i]=t[i].replace(/&#x27;/g,"");
+  console.log(t[i]);
+}
+var months={"Jan":1,"Feb":2,"Mar":3,"Apr":4,"May":5,"Jun":6,"July":7,
+            "Aug":8,"Sep":9,"Oct":10,"Nov":11,"Dec":12};
+var day=parseInt(t[1]);
+var mon=months[t[2].trim()];
+var year=parseInt(t[3]);
+var hr=parseInt(t[4]);
+var min=parseInt(t[5]);
+var sec=parseInt(t[6]);
+console.log(day,mon,year,hr,min,sec);
+
+
+var timer=document.querySelector(".counter p");
+    
+    var count_to=new Date(year,mon,day,hr,min,sec,0);
+    var x=setInterval(function(){
+      var now=new Date().getTime();
+      var d=count_to-now;
+      var min=Math.floor((d%(1000*60*60))/(1000*60));
+      var sec=Math.floor((d%(1000*60))/(1000));
+      timer.innerHTML=min+ " : "+sec;
+      if(min==0 && sec==00){
+        window.location.href="/accounts/logout";
+      }
+    },1000);
+      var a=ace.edit("editor");
+      a.setValue("#Correct the code\na=6\nfor i in range(a):\n\tj=i\n\tfor k in range(j):\n\t\tprint(\"*\")\n\tm=a-i\n\tprint()")
+      a.setOptions({ useWrapMode: false,
+    highlightActiveLine: true,
+    showPrintMargin: false,
+    theme: 'ace/theme/xcode',
+    mode: 'ace/mode/python',
+    fontSize: "15pt"});
+    console.log(a.getValue());
+    $(".tabs ul li").click(function(e){
+      if(!$(e.target).hasClass("active")){
+      var d=document.querySelectorAll(".tabs ul li");
+      for(var k=0;k<d.length;k++){
+        d[k].classList.remove("active");
+      }
+      console.log(e.target.innerHTML);
+      e.target.className+=" active";
+      var lang=e.target.getAttribute("l");
+      if(lang=="Python3"){
+        a.setOptions({mode:"ace/mode/python",});
+        a.setValue("#Correct the code\na=6\nfor i in range(a):\n\tj=i\n\tfor k in range(j):\n\t\tprint(\"*\")\n\tm=a-i\n\tprint()");
+      }
+      else if(lang=="java"){
+        a.setOptions({mode:"ace/mode/java",});
+        a.setValue("//Enter your code here\nimport java.io.*;\nclass GFG {\npublic static void main(String[] args){\nfor(int i=0;i<6;i++){\n\tfor(int m=0;m<6;m++){\n\t\tSystem.out.print(\"*\");\n\t}\n\tSystem.out.println();\n}\n}\n}");
+      }
+      else if(lang=="Cpp14"){
+        a.setOptions({mode:"ace/mode/c_cpp",});
+        a.setValue("//Enter your code here\n#include<iostream>\nusing namespace std;\nint main(){\nfor(int i=0;i<6;i++){\n\tfor(int m=0;m<6;m++){\n\t\tcout<<\"*\";\n\t}\n\tcout<<\"\\n\";\n}\n}");
+      }
+      else if(lang=="c"){
+        a.setOptions({mode:"ace/mode/c_cpp",});
+        a.setValue("//Enter your code here\n#include<stdio.h>\nusing namespace std;\nint main(){\nfor(int i=0;i<6;i++){\n\tfor(int m=0;m<6;m++){\n\t\tprintf(\"*\");\n\t}\n\tprintf(\"\\n\");\n}\n}");
+      }
+      }
+    })
+    $(document).on('submit',"#data",function(e){
+      e.preventDefault();
+      var t=$(".tabs ul li.active").attr("l");
+      
+      $.ajax({
+        type:'POST',
+        url:"/postdata/",
+        data:{
+          lang:t,
+          code:a.getValue(),
+          inputdata:"",
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success:function(data){
+          console.log(data);
+          var d=document.querySelector("#outputpara");
+          var k=data["output"];
+          k=k.replace(/ /g,"&nbsp;");
+          d.innerHTML=k;
+          console.log("in html"+data["result"]);
+          if(data["result"]){
+            var t=document.querySelector("div.next-button");
+            t.classList.add("active");
+          }
+        },
+      })
+    })
+    </script>
+  </body>
+</html>
