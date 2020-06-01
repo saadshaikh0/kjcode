@@ -21,39 +21,41 @@
       </div>
     </div>
     <div class="question-heading">
-        <h4>Longest Consecutive Subsequence</h4>
+        <h4>The Gaming Name        </h4>
     </div>
     <div class="container-fluid questions">
 
       <div class="desc">
-        <p>Given an array of integers, find the length of the longest sub-sequence such that elements in the subsequence are consecutive integers, the consecutive numbers can be in any order.
+        <p>Since, Nowdays there are many people playing games like PUBG, Fortnite etc. It is estimated that there are
+          1 billion gamers in the world. So to find a good gaming name for yourself has become a very tedious task.
+          You are given a list of gaming names.Your task is to print the lexicographically smallest name for gaming career.
+          There is a restriction that there should not be any substring that is common among all the existing gaming names
+          and the new gaming name.
+          </p>
+        <p>Input Format:</p>
+        <p>The first line contains t denoting the number of test cases.</p>
+          <p>the first line of each test case containes N denoting total existing gaming names.</p>
+          <p>The next line contains a string of length at most 20 denoting the names of those gamers.</p>
+       <p>Output Foramt:</p>
+       <p>For each test case, you are required to print the name of a new gamer. If it is impossible to name it , then print -1
+      </p>
+      <p>Constraints:</p>
+      <p>1≤t≤100</p>
+      <p>1≤N≤10^4</p>
+          <div class="input">
+    <p > <b>Sample Input :</b></p>
+    <p>1 <br>2 <br>scout <br>mortal</p>
+    <p>Sample Output:</p>
+    <p>b</p>
 
-        </p>
-  <div class="input">
-    <p > <b>Input:</b>  arr[] = {1, 9, 3, 10, 4, 20, 2}</p>
-  <p> <b>Output:</b>  4</p>
-  <p>The subsequence 1, 3, 4, 2 is the longest subsequence
-    of consecutive elements</p>
+    
+    
+   
+  <p>Explanation:</p>
+  <p>In the sample test case if you name the new gamer "b" then you see that it does not have any substring that matches
+    any of the company names around and also it is the lexicographical smallest name.</p>
   </div>
-<!-- <p>Function Description
-Complete the minimumMoves function in the editor. It must print an integer denoting the minimum moves required to get from the starting position to the goal.
-
-minimumMoves has the following parameter(s):
-
-grid: an array of strings representing the rows of the grid</p>
-<p>startX: an integer</p>
-<p>startY: an integer</p>
-<p>goalX: an integer</p>
-<p>goalY: an integer</p>
-<p>Input Format</p>
-
-<p>The first line contains an integer , the size of the array grid.
-Each of the next  lines contains a string of length .
-The last line contains four space-separated integers,
-
-Constraints
-
-Output Format</p> -->
+<
       </div>
 
 
@@ -86,8 +88,8 @@ Output Format</p> -->
 <div class="input-program">
   <textarea name="input" id='text' rows="6" cols="50" placeholder="Enter your input here..."></textarea>
 <div class="runbutton">
-  <button type="button" name="button">Run</button>
-    <button type="submit" name="submit">Submit</button>
+  <button type="submit" name="button" id="run">Run</button>
+    <button type="button"  id="submit" name="submit">Submit</button>
 
 </div>
 
@@ -95,7 +97,9 @@ Output Format</p> -->
 </div>
 </form>
 <div class="winning">
-  <p class="text-center">Yaaay, you have completed all stages ,now see your rankings <a href="/submit/">Result</a></p>
+  <p class="text-center"></p>
+    <!-- <a href="/submit/">Result</a> -->
+ 
 </div>
 <div class="output">
   <h3>Output</h3>
@@ -105,12 +109,44 @@ Output Format</p> -->
 <div class="counter">
   <p>Timings</p>
 </div>
+<div class="testcases">
+  <h2 style="width:95%;margin:5px auto;">Result</h2>
+<table>
+  <tr>
+    <td id="t1">Test Case 1</td>
+    <td id="t2">Test Case 2</td>
+    <td id="t3">Test Case 3</td>
+
+  </tr>
+  <tr>
+    <td id="t4">Test Case 4</td>
+    <td id="t5">Test Case 5</td>
+    <td id="t6">Test Case 6</td>
+
+  </tr>
+  <tr>
+    <td id="t7">Test Case 7</td>
+    <td id="t8">Test Case 8</td>
+    <td id="t9">Test Case 9</td>
+
+  </tr>
+
+</table>
+</div>
 {% include "partials/footer.html"%}
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script type="text/javascript">
+    $(document).ready(function(){
+      // $("#data").ajaxStart(function(){
+      //   $('#run').text("Running");
+      // });
+      // $(document).ajaxComplete(function(){
+      //   $('#run').text("Run");
+      // })
+    });
       var a=ace.edit("editor");
       a.setValue("#Enter your code here")
       a.setOptions({ useWrapMode: false,
@@ -122,7 +158,7 @@ Output Format</p> -->
     var x="{{time}}";
 var t=x.split(","); 
 for(var i=1;i<t.length-1;i++){
-  t[i]=t[i].replace(/&#x27;/g,"");
+  t[i]=t[i].replace(/&#39;/g,"");
   console.log(t[i]);
 }
 var months={"Jan":1,"Feb":2,"Mar":3,"Apr":4,"May":5,"Jun":6,"July":7,
@@ -174,7 +210,8 @@ var timer=document.querySelector(".counter p");
         a.setValue("//Enter your code here");
       }
 
-    })
+    });
+    var points=0;
     $(document).on('submit',"#data",function(e){
       e.preventDefault();
       var t=$(".tabs ul li.active").attr("l");
@@ -182,6 +219,14 @@ var timer=document.querySelector(".counter p");
       $.ajax({
         type:'POST',
         url:"/postdata/",
+        beforeSend:function(){
+          $('#run').text("Running");
+          document.getElementById("outputpara").innerHTML = "";
+        },
+        complete:function(){
+          $('#run').text("Run");
+        },
+
         data:{
           lang:t,
           code:a.getValue(),
@@ -191,12 +236,41 @@ var timer=document.querySelector(".counter p");
         success:function(data){
           console.log(data);
           var d=document.querySelector("#outputpara");
-          d.innerHTML=data["output"];
-          r=data["result"]
+          var array=data["output"];
+          var sample=data["sample_output"]
+          
+          for(var i=0;i<array.length;i++){
+            if(array[i]==1){
+              points++;
+              document.getElementById("t"+(i+1).toString()).style.backgroundColor="lightgreen";
+            }else{
+              document.getElementById("t"+(i+1).toString()).style.backgroundColor="red";
+            }
+          }
+          if(sample.length>0){
+            
+            document.getElementById("outputpara").innerHTML = sample;
+          }
+          r=data["result"];
           if(r){
-            document.querySelector(".winning p").classList.add("active");
+           var para= document.querySelector(".winning p");
+           para.classList.add("active");
+           para.innerHTML="Yaaay, you have scored "+points.toString()+" points."
           }
         },
+      })
+    });
+    $("#submit").click(function(){
+      $.ajax({
+        type:'POST',
+        url:'/submit/',
+        data:{
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+          point:points,
+        },
+        success:function(data){
+          window.location.href="/thankyou/";
+        }
       })
     })
     </script>

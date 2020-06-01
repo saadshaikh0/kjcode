@@ -8,6 +8,22 @@ body{
   background: #272343;
   padding: 3%;
 }
+.testcases{
+
+  width: 100%;
+}
+table{
+
+  border: 1px solid black;
+  margin: 5px auto;
+  width: 80%;
+}
+table tr td{
+  text-align: center;
+  padding: 10px;
+  border: 1px solid black;
+  background: lightgrey;
+}
 img{
   width: 100px;
   height:150px;
@@ -171,3 +187,4 @@ background: white;
 .winning p.active{
   display: block;
 }
+
