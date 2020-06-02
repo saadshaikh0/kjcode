@@ -18,4 +18,5 @@ class Student(models.Model):
     user=models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
     marks=models.IntegerField(default=0)
     time=models.TextField(max_length=10,default="")
-    
+    phone=models.IntegerField(default=0)
+

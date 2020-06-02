@@ -10,12 +10,13 @@ def register(request):
         username=request.POST["username"]
         email=request.POST["email"]
         password=request.POST["password"]
-        name=request.POST["Name"]
+        name=request.POST["first"]
         print(username,email,password,name)
         user=User.objects.create_user(username,email,password=password,first_name=name)
         user.save()
         s=Student(user=user)
         s.save()
+
         messages.info(request,"Please login by clicking the login button at bottom right of page")
         return render(request,"home.html")
 
@@ -26,7 +27,7 @@ def login(request):
         user=auth.authenticate(username=username,password=password)
         if user is not None:
             auth.login(request,user)
-            request.session['timer'] = (datetime.datetime.now()+datetime.timedelta(minutes=60)).strftime("%d-%b-%Y (%H:%M:%S)")
+            request.session['timer'] = (datetime.datetime.now()+datetime.timedelta(minutes=15)).strftime("%d-%b-%Y (%H:%M:%S)")
 
 
 

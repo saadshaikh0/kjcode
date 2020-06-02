@@ -124,7 +124,7 @@ to{width:33%; }
   margin: 0px;
 }
 button.close {
- 
+
   background-color: transparent;
   border: 0;
   margin: 0 !important;
@@ -155,7 +155,7 @@ button.close {
 
 .image{
   position: relative;
- 
+
   background-position: center;
 }
 .image h2{
@@ -201,29 +201,11 @@ button.close {
   color: white;
 
 }
-input[type="password"]{
-  position: relative;
-  left: 13%;
-  padding: 6% 0 0 0;
-}
+
 /* input[type="password"]:hover+label{
   transform: translateX(-10%)!important;
 } */
-#username{
-  position: relative;
-  left: 14%;
-  padding: 6% 0 0 0;
-}
-#email{
-  position: relative;
-  left: 14%;
-  padding: 6% 0 0 0;
-}
-#Name{
-  position: relative;
-  left: 14%;
-  padding: 6% 0 0 0;
-}
+
 /* label[for="Name"]{
   transform: translateX(5%)!important;
   position: absolute;
@@ -314,7 +296,7 @@ label[for="username"]{
   position: absolute;
   right: 20%;
   border-radius: 2rem;
-  
+
 }
 .login-para{
   color: white;
@@ -367,6 +349,62 @@ margin-right: 10px;
   color:#f5f0e3 ;
 
 
+}
+ul li{
+  font-size: 30px;
+}
+.box{
+  box-shadow: 0px 0px 20px #888888;
+  margin-bottom:10px;
+}
+.names{
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-around;
+}
+label{
+  font-family: 'Roboto Slab', serif;
+  width: 100%;
+}
+button.btn{
+  
+  margin-bottom:10px;
+}
+#close{
+  position: absolute;
+  right: 5%;
+  top: 2%;
+  text-decoration: none;
+}
+input{
+  width: 80%;
+}
+.buttons p{
+  margin: 10px 0;
+  padding-left: 5px;
+}
+.btn-dark{
+  margin-top: 0;
+}
+.buttons{
+  margin-top: 20%;
+
+}
+
+.modal-box{
+  background: white;
+  border:1px solid black;
+  display: none;
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+padding: 40px;
+}
+.modal-box.active{
+  display: block;
+  z-index: 2;
 }
 .message{
   background: lightgreen;
