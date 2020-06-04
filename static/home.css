@@ -366,9 +366,14 @@ label{
   font-family: 'Roboto Slab', serif;
   width: 100%;
 }
-button.btn{
-  
+.modal-box button.btn{
+  float: left;
+    margin-left: 0;
   margin-bottom:10px;
+  margin-top:10px;
+}
+button.btn{
+  margin-bottom: 10px;
 }
 #close{
   position: absolute;

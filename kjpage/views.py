@@ -268,9 +268,12 @@ def leaderboard(request):
     s=Student.objects.all()
     win=[]
     k=1
+    import re
     for i in s:
         if i.time!="":
-            win.append([k,i.user.first_name+" "+i.user.last_name,i.time,int(i.time[:2]),int(i.time[4:]),i.marks])
+            a=re.findall("([0123456789]+)\s:\s([0123456789]+)",i.time)
+            print(a, i.time)
+            win.append([k,i.user.first_name+" "+i.user.last_name,i.time,int(a[0][0]),int(a[0][1]),i.marks])
     print(win)
     win_calc=sorted(win,key=itemgetter(5),reverse=True)   
     for i in win_calc:
