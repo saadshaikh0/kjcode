@@ -13,7 +13,7 @@ def register(request):
         first_name=request.POST["first"]
         last_name=request.POST["last"]
         phone=request.POST["phone"]
-        print(username,email,password,name)
+        
         user=User.objects.create_user(username,email,password=password,first_name=first_name,last_name=last_name)
         user.save()
         s=Student(user=user)
