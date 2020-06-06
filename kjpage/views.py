@@ -111,7 +111,7 @@ def postdata(request):
        # print(type(code),type(inputdata))
         tc=[0]*3
         sample_output=""
-        for i in range(3):
+        for i in range(1):
             data = {
             'lang': lang,
             'code': code,
