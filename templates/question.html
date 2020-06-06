@@ -216,10 +216,10 @@ var timer=document.querySelector(".counter p");
 
     });
     var points=0;
-    $(document).on('submit',"#data",function(e){
-      e.preventDefault();
+
+    var no1=1;
+    function ajaxRequests(i){
       var t=$(".tabs ul li.active").attr("l");
-      
       $.ajax({
         type:'POST',
         url:"/postdata/",
@@ -228,13 +228,18 @@ var timer=document.querySelector(".counter p");
           document.getElementById("outputpara").innerHTML = "";
         },
         complete:function(){
-          $('#run').text("Run");
+          if(i==2){
+            $('#run').text("Run");
+
+          }
+          
         },
 
         data:{
           lang:t,
           code:a.getValue(),
           inputdata:$('#text').val(),
+          no:i,
           csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
         },
         success:function(data){
@@ -243,26 +248,88 @@ var timer=document.querySelector(".counter p");
           var array=data["output"];
           var sample=data["sample_output"];
           points=0;
-          for(var i=0;i<array.length;i++){
-            if(array[i]==1){
-              points++;
-              document.getElementById("t"+(i+1).toString()).style.backgroundColor="lightgreen";
-            }else{
-              document.getElementById("t"+(i+1).toString()).style.backgroundColor="red";
-            }
+          if(array==1){
+            points++;
+            document.getElementById("t"+(i+1).toString()).style.backgroundColor="lightgreen";
+          }
+          else{
+            document.getElementById("t"+(i+1).toString()).style.backgroundColor="red";
           }
           if(sample.length>0){
             
             document.getElementById("outputpara").innerHTML = sample;
           }
-          r=data["result"];
-          if(r){
+          if(i==2){
+            r=data["result"];
+            if(r){
            var para= document.querySelector(".winning p");
            para.classList.add("active");
            para.innerHTML="Yaaay, you have scored "+points.toString()+" points."
           }
+          }
+          
+          
+          if(i<2){
+          ajaxRequests(i+1);}
         },
-      })
+      });
+    }
+    $(document).on('submit',"#data",function(e){
+      e.preventDefault();
+      var t=$(".tabs ul li.active").attr("l");
+      
+      // $.ajax({
+      //   type:'POST',
+      //   url:"/postdata/",
+      //   beforeSend:function(){
+      //     $('#run').text("Running");
+      //     document.getElementById("outputpara").innerHTML = "";
+      //   },
+      //   complete:function(){
+      //     $('#run').text("Run");
+      //   },
+
+      //   data:{
+      //     lang:t,
+      //     code:a.getValue(),
+      //     inputdata:$('#text').val(),
+      //     no:no1,
+      //     csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+      //   },
+      //   success:function(data){
+      //     console.log(data);
+      //     var d=document.querySelector("#outputpara");
+      //     var array=data["output"];
+      //     var sample=data["sample_output"];
+      //     points=0;
+      //     // for(var i=0;i<array.length;i++){
+      //     //   if(array[i]==1){
+      //     //     points++;
+      //     //     document.getElementById("t"+(i+1).toString()).style.backgroundColor="lightgreen";
+      //     //   }else{
+      //     //     document.getElementById("t"+(i+1).toString()).style.backgroundColor="red";
+      //     //   }
+      //     // }
+      //     if(array==1){
+      //       points++;
+      //       document.getElementById("t"+(no1+1).toString()).style.backgroundColor="lightgreen";
+      //     }
+      //     else{
+      //       document.getElementById("t"+(no1+1).toString()).style.backgroundColor="red";
+      //     }
+      //     if(sample.length>0){
+            
+      //       document.getElementById("outputpara").innerHTML = sample;
+      //     }
+      //     r=data["result"];
+      //     if(r){
+      //      var para= document.querySelector(".winning p");
+      //      para.classList.add("active");
+      //      para.innerHTML="Yaaay, you have scored "+points.toString()+" points."
+      //     }
+      //   },
+      // })
+      ajaxRequests(0);
     });
     $("#submit").click(function(){
       $.ajax({

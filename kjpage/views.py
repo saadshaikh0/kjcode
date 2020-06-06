@@ -22,6 +22,9 @@ def code(request):
     x=re.split("^([0-9]{1,3})-([a-zA-Z]{3})-([0-9]{4})\s\(([0-9]{1,3}):([0-9]{1,3}):([0-9]{1,3})\)$",request.session["timer"])
     print(x)
     return render(request,"question.html",{"time":x})
+
+
+
 @login_required
 def postdata(request):
     
@@ -79,6 +82,7 @@ def postdata(request):
         code=request.POST['code']
         inputdata=request.POST['inputdata']
         lang=request.POST['lang']
+        no=int(request.POST['no'])
         print(code,inputdata,lang)
         headers = {
         'authority': 'ide.geeksforgeeks.org',
@@ -109,85 +113,115 @@ def postdata(request):
         'cookie': '_ga=GA1.2.76497464.1571747970; __gads=ID=69b59c20a0673175:T=1579980593:S=ALNI_MZGcUMeT0oT_Ju6hBg47wbRJbX9Ow; _fbp=fb.1.1579980637697.984602587; __ssds=2; __ssuzjsr2=a9be0cd8e; __uzmaj2=d73878be-9fae-4d21-923c-30e9d9ace296; __uzmbj2=1584472415; __uzmcj2=6068813665416; __uzmdj2=1586501588; RT="z=1&dm=geeksforgeeks.org&si=1t43fz6buhm&ss=k7p7uki9&sl=0&tt=0"; __utma=245605906.76497464.1571747970.1586501588.1586874760.35; __utmz=245605906.1586874760.35.33.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); _gid=GA1.2.1783487720.1587283177; _gat=1; authtoken=1ef5698200f0584083e462b8202c6e1d; _gat_gtag_UA_144087254_1=1; G_ENABLED_IDPS=google; G_AUTHUSER_H=0; geeksforgeeks_consent_status=dismiss',
         }
        # print(type(code),type(inputdata))
-        tc=[0]*3
-        sample_output=""
-        for i in range(1):
-            data = {
-            'lang': lang,
-            'code': code,
-            'input': input_array[i],
-            'save': 'false'
-            }
+        # tc=[0]*3
+        # sample_output=""
+        # for i in range(1):
+        #     data = {
+        #     'lang': lang,
+        #     'code': code,
+        #     'input': input_array[i],
+        #     'save': 'false'
+        #     }
 
-            response = requests.post('https://ide.geeksforgeeks.org/main.php', headers=headers, data=data)
-            response=response.json()
-            sid=response["sid"]
+        #     response = requests.post('https://ide.geeksforgeeks.org/main.php', headers=headers, data=data)
+        #     response=response.json()
+        #     sid=response["sid"]
 
        
 
-            data = {
-            ' sid': sid,
-            'requestType': 'fetchResults'
+        #     data = {
+        #     ' sid': sid,
+        #     'requestType': 'fetchResults'
+        #     }
+        
+        #     response = requests.post('https://ide.geeksforgeeks.org/submissionResult.php', headers=headers1, data=data)
+        #     response=response.json()
+        #     while(response["status"]!="SUCCESS"):
+        
+        #         response = requests.post('https://ide.geeksforgeeks.org/submissionResult.php', headers=headers1, data=data)
+        #         response=response.json()
+
+        #     if "rntError" not in response:
+        #         output=response["output"]
+        #         print(output)
+        #         print(output_array[i])
+        #         if output==output_array[i]:
+        #             tc[i]=1
+        #         else:
+        #             tc[i]=0
+        #     else:
+        #         tc[i]=0
+        #         output=response["rntError"]
+        #         sample_output=output
+        #         break
+        # print(tc)
+
+        # o=True
+        
+
+        # input_from_textarea=request.POST["inputdata"]
+        # if len(input_from_textarea)>0:
+        #     data = {
+        #     'lang': lang,
+        #     'code': code,
+        #     'input': input_from_textarea,
+        #     'save': 'false'
+        #     }
+
+        #     response = requests.post('https://ide.geeksforgeeks.org/main.php', headers=headers, data=data)
+        #     response=response.json()
+        #     sid=response["sid"]
+
+       
+
+        #     data = {
+        #     ' sid': sid,
+        #     'requestType': 'fetchResults'
+        #     }
+        
+        #     response = requests.post('https://ide.geeksforgeeks.org/submissionResult.php', headers=headers1, data=data)
+        #     response=response.json()
+        #     while(response["status"]!="SUCCESS"):
+        
+        #         response = requests.post('https://ide.geeksforgeeks.org/submissionResult.php', headers=headers1, data=data)
+        #         response=response.json()
+
+        #     if "rntError" not in response:
+        #         sample_output=response["output"]
+        #     else:
+        #         sample_output=response["rntError"]
+        data = {
+            'lang': lang,
+            'code': code,
+            'input': input_array[no],
+            'save': 'false'
             }
+        response = requests.post('https://ide.geeksforgeeks.org/main.php', headers=headers, data=data)
+        response=response.json()
+        sid=response["sid"]
+
+       
+
+        data = {
+        ' sid': sid,
+        'requestType': 'fetchResults'
+        }
+        
+        response = requests.post('https://ide.geeksforgeeks.org/submissionResult.php', headers=headers1, data=data)
+        response=response.json()
+        while(response["status"]!="SUCCESS"):
         
             response = requests.post('https://ide.geeksforgeeks.org/submissionResult.php', headers=headers1, data=data)
             response=response.json()
-            while(response["status"]!="SUCCESS"):
-        
-                response = requests.post('https://ide.geeksforgeeks.org/submissionResult.php', headers=headers1, data=data)
-                response=response.json()
 
-            if "rntError" not in response:
-                output=response["output"]
-                print(output)
-                print(output_array[i])
-                if output==output_array[i]:
-                    tc[i]=1
-                else:
-                    tc[i]=0
-            else:
-                tc[i]=0
-                output=response["rntError"]
-                sample_output=output
-                break
-        print(tc)
-
+        if "rntError" not in response:
+            sample_output=response["output"]
+        else:
+            sample_output=response["rntError"]
+        tc=0
+        if sample_output==output_array[no]:
+            tc=1
         o=True
-        
-
-        input_from_textarea=request.POST["inputdata"]
-        if len(input_from_textarea)>0:
-            data = {
-            'lang': lang,
-            'code': code,
-            'input': input_from_textarea,
-            'save': 'false'
-            }
-
-            response = requests.post('https://ide.geeksforgeeks.org/main.php', headers=headers, data=data)
-            response=response.json()
-            sid=response["sid"]
-
-       
-
-            data = {
-            ' sid': sid,
-            'requestType': 'fetchResults'
-            }
-        
-            response = requests.post('https://ide.geeksforgeeks.org/submissionResult.php', headers=headers1, data=data)
-            response=response.json()
-            while(response["status"]!="SUCCESS"):
-        
-                response = requests.post('https://ide.geeksforgeeks.org/submissionResult.php', headers=headers1, data=data)
-                response=response.json()
-
-            if "rntError" not in response:
-                sample_output=response["output"]
-            else:
-                sample_output=response["rntError"]
-
-        
 
         return JsonResponse({'output':tc,"result":o,"sample_output":sample_output})
 
