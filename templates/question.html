@@ -272,6 +272,12 @@ var timer=document.querySelector(".counter p");
           if(i<2){
           ajaxRequests(i+1);}
         },
+        error:function(jqXHR, exception){
+          if(jqXHR.status==503){
+            ajaxRequests(i);
+          }
+          console.log(exception);
+        },
       });
     }
     $(document).on('submit',"#data",function(e){
