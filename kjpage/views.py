@@ -24,6 +24,73 @@ def code(request):
     return render(request,"question.html",{"time":x})
 
 
+@login_required
+def input_answer(request):
+    if request.method=='POST':
+        #request.POST['inputdata']
+        code=request.POST['code']
+        inputdata=request.POST['inputdata']
+        lang=request.POST['lang']
+        
+        print(code,inputdata,lang)
+        headers = {
+        'authority': 'ide.geeksforgeeks.org',
+        'accept': 'application/json, text/javascript, */*; q=0.01',
+        'x-requested-with': 'XMLHttpRequest',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36',
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'origin': 'https://ide.geeksforgeeks.org',
+        'sec-fetch-site': 'same-origin',
+        'sec-fetch-mode': 'cors',
+        'referer': 'https://ide.geeksforgeeks.org/',
+        'accept-encoding': 'gzip, deflate, br',
+        'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8,mr;q=0.7',
+        'cookie': '__gads=Test; __utmz=245605906.1574330848.3.3.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); __utma=245605906.76497464.1571747970.1571828951.1574330845.3; _ga=GA1.2.76497464.1571747970; _gid=GA1.2.244651628.1579195481; _gat=1; _gat_gtag_UA_144087254_1=1',
+        }
+        headers1 = {
+        'authority': 'ide.geeksforgeeks.org',
+        'accept': 'application/json, text/javascript, */*; q=0.01',
+        'sec-fetch-dest': 'empty',
+        'x-requested-with': 'XMLHttpRequest',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36',
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'origin': 'https://ide.geeksforgeeks.org',
+        'sec-fetch-site': 'same-origin',
+        'sec-fetch-mode': 'cors',
+        'referer': 'https://ide.geeksforgeeks.org/',
+        'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8,mr;q=0.7',
+        'cookie': '_ga=GA1.2.76497464.1571747970; __gads=ID=69b59c20a0673175:T=1579980593:S=ALNI_MZGcUMeT0oT_Ju6hBg47wbRJbX9Ow; _fbp=fb.1.1579980637697.984602587; __ssds=2; __ssuzjsr2=a9be0cd8e; __uzmaj2=d73878be-9fae-4d21-923c-30e9d9ace296; __uzmbj2=1584472415; __uzmcj2=6068813665416; __uzmdj2=1586501588; RT="z=1&dm=geeksforgeeks.org&si=1t43fz6buhm&ss=k7p7uki9&sl=0&tt=0"; __utma=245605906.76497464.1571747970.1586501588.1586874760.35; __utmz=245605906.1586874760.35.33.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided); _gid=GA1.2.1783487720.1587283177; _gat=1; authtoken=1ef5698200f0584083e462b8202c6e1d; _gat_gtag_UA_144087254_1=1; G_ENABLED_IDPS=google; G_AUTHUSER_H=0; geeksforgeeks_consent_status=dismiss',
+        }
+        data = {
+            'lang': lang,
+            'code': code,
+            'input': inputdata,
+            'save': 'false'
+            }
+        response = requests.post('https://ide.geeksforgeeks.org/main.php', headers=headers, data=data)
+        response=response.json()
+        sid=response["sid"]
+
+       
+
+        data = {
+        ' sid': sid,
+        'requestType': 'fetchResults'
+        }
+        
+        response = requests.post('https://ide.geeksforgeeks.org/submissionResult.php', headers=headers1, data=data)
+        response=response.json()
+        while(response["status"]!="SUCCESS"):
+        
+            response = requests.post('https://ide.geeksforgeeks.org/submissionResult.php', headers=headers1, data=data)
+            response=response.json()
+        sample_output=""
+        if "rntError" not in response :
+            sample_output=response["output"]
+        else:
+            sample_output=response["rntError"]       
+
+        return JsonResponse({"sample_output":sample_output})
 
 @login_required
 def postdata(request):

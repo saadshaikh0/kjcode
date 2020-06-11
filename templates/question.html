@@ -87,6 +87,10 @@
 </div>
 <div class="input-program">
   <textarea name="input" id='text' rows="6" cols="50" placeholder="Enter your input here..."></textarea>
+  <div class="check" style="background: #272343; color: #bae8e8; height: 30px; margin-left:8px;padding:0 5px;border-radius:10px;">
+    <label for="custom"> Custom Input</label>
+    <input id="custom" type="checkbox" name="custom" value="C">
+  </div>
 <div class="runbutton">
   <button type="submit" name="button" id="run">Run</button>
     <button type="button"  id="submit" name="submit">Submit</button>
@@ -218,7 +222,7 @@ var timer=document.querySelector(".counter p");
     var points=0;
 
     var no1=1;
-    function ajaxRequests(i){
+    function ajaxRequests(i,points){
       var t=$(".tabs ul li.active").attr("l");
       $.ajax({
         type:'POST',
@@ -247,7 +251,7 @@ var timer=document.querySelector(".counter p");
           var d=document.querySelector("#outputpara");
           var array=data["output"];
           var sample=data["sample_output"];
-          points=0;
+          
           if(array==1){
             points++;
             document.getElementById("t"+(i+1).toString()).style.backgroundColor="lightgreen";
@@ -255,10 +259,7 @@ var timer=document.querySelector(".counter p");
           else{
             document.getElementById("t"+(i+1).toString()).style.backgroundColor="red";
           }
-          if(sample.length>0){
-            
-            document.getElementById("outputpara").innerHTML = sample;
-          }
+          
           if(i==2){
             r=data["result"];
             if(r){
@@ -270,7 +271,7 @@ var timer=document.querySelector(".counter p");
           
           
           if(i<2){
-          ajaxRequests(i+1);}
+          ajaxRequests(i+1,points);}
         },
         error:function(jqXHR, exception){
           if(jqXHR.status==503){
@@ -335,7 +336,35 @@ var timer=document.querySelector(".counter p");
       //     }
       //   },
       // })
-      ajaxRequests(0);
+      if(document.getElementById("custom").checked){
+        $.ajax({
+        type:'POST',
+        url:"/input_answer/",
+        beforeSend:function(){
+          $('#run').text("Running");
+          document.getElementById("outputpara").innerHTML = "";
+        },
+        complete:function(){
+          $('#run').text("Run");
+        },
+
+        data:{
+          lang:t,
+          code:a.getValue(),
+          inputdata:$('#text').val(),
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success:function(data){
+          var sample=data["sample_output"];
+          document.getElementById("outputpara").innerHTML = sample;
+        },
+        });
+
+      }
+      else{
+        ajaxRequests(0,0);
+      }
+     
     });
     $("#submit").click(function(){
       $.ajax({
